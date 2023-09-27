@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">myCrypto</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="todo">TODO</string>
+    <string name="coins_list_error">Error Loading, please Refresh</string>
+    <string name="no_favourites">oops ! There is no Favourite</string>
+    <string name="dark_mode">DarkMode</string>
+</resources>
