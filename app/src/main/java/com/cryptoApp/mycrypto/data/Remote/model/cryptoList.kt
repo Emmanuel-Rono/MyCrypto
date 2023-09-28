@@ -1,5 +1,8 @@
 package com.cryptoApp.mycrypto.data
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
 data class CryptoList(
     val ath: Int,
     val ath_change_percentage: Double,
@@ -27,4 +30,13 @@ data class CryptoList(
     val symbol: String,
     val total_supply: Int,
     val total_volume: Long
+)
+@Entity(tableName = "CryptoListTable")
+data class CryptoEntity(
+   @PrimaryKey val id: String,
+    val name: String,
+    val price: Double?,
+    val changePercent: Double? = null,
+    val image: String? = null,
+    val isFavourite: Boolean = false
 )
