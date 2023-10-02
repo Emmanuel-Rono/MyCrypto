@@ -21,14 +21,12 @@ data class CryptoList(
     val price_change_percentage_24h: Double,
     val roi: Any,
     val symbol: String,
-
 )
 {
     fun toCryptoEntity():CryptoEntity{
         return CryptoEntity(name,current_price, price_change_percentage_24h,image )
     }
 }
-
 @Entity(tableName = "CryptoListTable")
 data class CryptoEntity(
     @PrimaryKey val id: String,
