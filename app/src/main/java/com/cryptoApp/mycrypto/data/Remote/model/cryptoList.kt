@@ -34,7 +34,7 @@ data class CryptoEntity(
     @PrimaryKey val id: String,
     val name: Double,
     val current_price:Double?=null,
-    val changePercent: String = null,
+    val changePercent: String? = null,
     val image: String? = null,
     val isFavourite: Boolean = false
 )

@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import com.cryptoApp.mycrypto.data.CryptoEntity
-import retrofit2.http.Query
+import androidx.room.Query
 
 @Dao
 interface CryptoDao {
