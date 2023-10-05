@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navgraph"
+    app:startDestination="@id/coins">
+
+    <fragment
+        android:id="@+id/coins"
+        android:name="com.CryptoApp.mycrypto.presentation.Fragments.Coins"
+        android:label="Coins" >
+        <action
+            android:id="@+id/action_coins_to_favouriteCoins"
+            app:destination="@id/favouriteCoins" />
+        <action
+            android:id="@+id/action_coins_to_account"
+            app:destination="@id/account" />
+    </fragment>
+    <fragment
+        android:id="@+id/account"
+        android:name="com.CryptoApp.mycrypto.presentation.Fragments.Account"
+        android:label="Account" >
+        <action
+            android:id="@+id/action_account_to_coins"
+            app:destination="@id/coins" />
+    </fragment>
+    <fragment
+        android:id="@+id/favouriteCoins"
+        android:name="com.CryptoApp.mycrypto.presentation.Fragments.FavouriteCoins"
+        android:label="FavouriteCoins" >
+        <action
+            android:id="@+id/action_favouriteCoins_to_account"
+            app:destination="@id/account" />
+        <action
+            android:id="@+id/action_favouriteCoins_to_coins"
+            app:destination="@id/coins" />
+    </fragment>
+</navigation>

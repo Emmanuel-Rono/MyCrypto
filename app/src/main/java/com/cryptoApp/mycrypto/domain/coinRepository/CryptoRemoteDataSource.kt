@@ -1,4 +1,4 @@
-package com.cryptoApp.mycrypto.domain
+package com.cryptoApp.mycrypto.domain.coinRepository
 
 import com.cryptoApp.mycrypto.data.Remote.api.ApiInterface
 import com.cryptoApp.mycrypto.data.Room.CryptoDao

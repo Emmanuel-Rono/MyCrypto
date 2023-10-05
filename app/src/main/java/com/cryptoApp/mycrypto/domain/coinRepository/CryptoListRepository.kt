@@ -1,21 +1,18 @@
-package com.cryptoApp.mycrypto.domain
+package com.cryptoApp.mycrypto.domain.coinRepository
 
 import com.cryptoApp.mycrypto.data.CryptoEntity
+import com.cryptoApp.mycrypto.data.Remote.api.ApiClient
 
-class CryptoListRepository (
+
+class CryptoListRepository(
     private val LocalDataSource: CryptoLocalDataSource,
     private val RemoteDataSource: CryptoRemoteDataSource
-        )
-
-{
-    suspend fun getCoinList():List<CryptoEntity>
-    {
+) {
+    suspend fun getCoinList(): List<CryptoEntity> {
         return LocalDataSource.getCryptoCoinListFromRoom()
     }
-    suspend fun refreshCoin()
-    {
+
+    suspend fun refreshCoin() {
         RemoteDataSource.getRemoteCrypto()
     }
-
-
 }

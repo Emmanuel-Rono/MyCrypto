@@ -24,7 +24,7 @@ data class CryptoList(
 )
 {
     fun toCryptoEntity():CryptoEntity{
-        return CryptoEntity(name,current_price, price_change_percentage_24h,image )
+        return CryptoEntity(name,current_price, price_change_percentage_24h,image,symbol )
     }
 }
 @Entity(tableName = "CryptoListTable")
@@ -34,5 +34,6 @@ data class CryptoEntity(
     val current_price:Double?=null,
     val changePercent: String? = null,
     val image: String? = null,
+    val symbol: String? = null,
     val isFavourite: Boolean = false
 )

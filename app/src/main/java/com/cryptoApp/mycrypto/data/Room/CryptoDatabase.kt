@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.cryptoApp.mycrypto.data.CryptoEntity
 
-@Database(entities = [CryptoEntity::class], version = 1)
+@Database(entities = [CryptoEntity::class], version = 1,exportSchema = false)
 abstract class CryptoDatabase: RoomDatabase()
 {
     abstract fun cryptoDao():CryptoDao
@@ -18,7 +18,6 @@ abstract class CryptoDatabase: RoomDatabase()
             INSTANCE ?: synchronized(this) {
                 INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
             }
-
         private fun buildDatabase(context: Context): CryptoDatabase {
             return Room.databaseBuilder(context.applicationContext, CryptoDatabase::class.java, "crypto_Database")
                 .build()

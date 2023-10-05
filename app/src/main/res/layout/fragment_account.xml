@@ -20,8 +20,6 @@
             android:id="@+id/settingsDarkModeSwitch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:checked="@{viewModel.isDarkMode}"
-            android:onCheckedChanged="@{(switch, checked) -> viewModel.onThemeChanged(checked)}"
             android:text="@string/dark_mode"
             android:layout_marginTop="@dimen/default_top_margin"
             android:layout_marginStart="@dimen/large_start_margin"
