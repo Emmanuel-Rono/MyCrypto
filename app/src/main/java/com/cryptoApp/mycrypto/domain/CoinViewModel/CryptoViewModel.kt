@@ -14,7 +14,6 @@ class CryptoViewModel(private val repository: CryptoListRepository): ViewModel()
     val cryptoCoinList: MutableLiveData<List<CryptoEntity>> get() = _cryptocoinList
 
     fun getTheCoinList() {
-        val api = ApiClient.apiService
         viewModelScope.launch {
             try {
                 val coinList=repository.getCoinList()

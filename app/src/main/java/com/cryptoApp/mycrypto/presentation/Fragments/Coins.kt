@@ -44,7 +44,7 @@ class Coins : Fragment() {
         val api= ApiClient.apiService
         val remoteDataSource = CryptoRemoteDataSource(coinDao,api)
         val localDataSource = CryptoLocalDataSource(coinDao, remoteDataSource)
-        val coinRepository = CryptoListRepository(localDataSource, remoteDataSource)
+        val coinRepository = CryptoListRepository(localDataSource,remoteDataSource)
         val viewModelFactory = CryptoViewModel.CryptoViewModelFactory(coinRepository)
         viewModel = ViewModelProvider(this, viewModelFactory)[CryptoViewModel::class.java]
 

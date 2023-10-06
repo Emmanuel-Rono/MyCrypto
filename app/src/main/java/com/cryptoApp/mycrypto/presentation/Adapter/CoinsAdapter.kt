@@ -28,7 +28,7 @@ class CoinsAdapter (var coins:List<CryptoEntity>): RecyclerView.Adapter<CoinsAda
         holder.coinName.text= item.name.toString()
         holder.coinPrice.text= item.current_price.toString()
         holder.coinSymbol.text=item.symbol
-        holder.coinPriceChange.text=item.changePercent
+        holder.coinPriceChange.text= item.changePercent.toString()
         Glide.with(holder.image)
             .load(item.image)
             .into(holder.image)
