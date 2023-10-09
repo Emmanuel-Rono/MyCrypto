@@ -7,9 +7,9 @@ import com.cryptoApp.mycrypto.data.Room.CryptoDao
 class CryptoRemoteDataSource(private val cryptoDao: CryptoDao, private val api: ApiInterface) {
 
     suspend fun getRemoteCrypto() {
-        val cryptoFromRemote=api.getCoinsFromApi(currency="eur")
+        val cryptoFromRemote=api.getCoinsFromApi()
         Log.d("Coins Remote Received","$cryptoFromRemote")
-        val cryptoList =cryptoFromRemote.map{it.toCryptoEntity()}
+        val cryptoList = cryptoFromRemote.map{it.toCryptoEntity()}
         cryptoDao.insertCoins(cryptoList)
     }
 }

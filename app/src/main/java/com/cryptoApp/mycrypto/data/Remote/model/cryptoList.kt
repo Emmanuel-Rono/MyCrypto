@@ -4,13 +4,11 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 data class CryptoList(
-    val ath: Int,
     val ath_change_percentage: Double,
     val ath_date: String,
     val atl: Double,
     val atl_change_percentage: Double,
     val atl_date: String,
-    val circulating_supply: Int,
     val current_price: Double,
     val id: String,
     val image: String,
@@ -24,15 +22,16 @@ data class CryptoList(
 )
 {
     fun toCryptoEntity():CryptoEntity{
-        return CryptoEntity(name,current_price, price_change_percentage_24h,image,symbol )
+        return CryptoEntity(id, name = name, current_price = current_price, changePercent = price_change_percentage_24h, image = image, symbol = symbol)
     }
+
 }
 @Entity(tableName = "CryptoListTable")
 data class CryptoEntity(
     @PrimaryKey val id: String,
-    val name: Double,
+    val name: String,
     val current_price:Double?=null,
-    val changePercent: String? = null,
+    val changePercent: Double? = null,
     val image: String? = null,
     val symbol: String? = null,
     val isFavourite: Boolean = false

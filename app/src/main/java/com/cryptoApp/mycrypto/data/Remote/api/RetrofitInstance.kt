@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 object ApiClient {
-    private const val BASE_URL = "https://api.coingecko.com/"
+    private const val BASE_URL = "https://api.coingecko.com/api/v3/coins/"
 
     private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
