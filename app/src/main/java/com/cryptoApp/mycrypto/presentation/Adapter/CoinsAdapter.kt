@@ -4,6 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.cryptoApp.mycrypto.Utils.UIHelper
+import com.cryptoApp.mycrypto.Utils.UIHelper.UIHelper.showChangePercent
+
 import com.cryptoApp.mycrypto.data.CryptoEntity
 import com.emmanuel_rono.mycrypto.databinding.CoinllistDisplayBinding
 
@@ -16,6 +19,7 @@ class CoinsAdapter (var coins:List<CryptoEntity>): RecyclerView.Adapter<CoinsAda
         var coinPrice=binding.coinsItemPriceTextView
         var coinPriceChange=binding.coinsItemChangeTextView
         var coinName=binding.coinsItemNameTextView
+        var changePercent=binding.coinsItemChangeTextView
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinsViewHolder {
@@ -32,6 +36,7 @@ class CoinsAdapter (var coins:List<CryptoEntity>): RecyclerView.Adapter<CoinsAda
         Glide.with(holder.image)
             .load(item.image)
             .into(holder.image)
+         showChangePercent(holder.changePercent, item.changePercent)
     }
     override fun getItemCount(): Int {
         return coins.size

@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.cryptoApp.mycrypto.data.Remote.api.ApiClient
-import com.cryptoApp.mycrypto.data.Remote.api.ApiInterface
 import com.cryptoApp.mycrypto.data.Room.CryptoDatabase
 import com.cryptoApp.mycrypto.domain.CoinViewModel.CryptoViewModel
 import com.cryptoApp.mycrypto.domain.coinRepository.CryptoListRepository
@@ -24,7 +23,7 @@ class Coins : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCoinsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -32,7 +31,6 @@ class Coins : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         adapter = CoinsAdapter(emptyList())
         binding.coinsListRecyclerView.apply {
             layoutManager = GridLayoutManager(requireContext(), 1)
@@ -55,4 +53,5 @@ class Coins : Fragment() {
 
         viewModel.getTheCoinList()
     }
+
 }
