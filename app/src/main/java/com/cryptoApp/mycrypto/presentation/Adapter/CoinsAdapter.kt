@@ -4,40 +4,62 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.cryptoApp.mycrypto.Utils.UIHelper
 import com.cryptoApp.mycrypto.Utils.UIHelper.UIHelper.showChangePercent
-
 import com.cryptoApp.mycrypto.data.CryptoEntity
+import com.emmanuel_rono.mycrypto.R
 import com.emmanuel_rono.mycrypto.databinding.CoinllistDisplayBinding
 
-class CoinsAdapter (var coins:List<CryptoEntity>): RecyclerView.Adapter<CoinsAdapter.CoinsViewHolder>()
-{
-    inner class CoinsViewHolder(private val binding: CoinllistDisplayBinding):RecyclerView.ViewHolder(binding.root)
-    {
-        var image=binding.coinsItemImageView
-        var coinSymbol=binding.coinsItemSymbolTextView
-        var coinPrice=binding.coinsItemPriceTextView
-        var coinPriceChange=binding.coinsItemChangeTextView
-        var coinName=binding.coinsItemNameTextView
-        var changePercent=binding.coinsItemChangeTextView
+class CoinsAdapter(
+    var coins: List<CryptoEntity>,
+    private val viewListener: Any,
+    private val favouriteListener: OnFavouriteClickListener
+) : RecyclerView.Adapter<CoinsAdapter.CoinsViewHolder>() {
+
+    interface OnFavouriteClickListener {
+        fun onFavouriteClick(coin: CryptoEntity)
+    }
+
+    interface OnViewClickListener {
+        fun onViewClicked(coin: CryptoEntity)
+    }
+
+    inner class CoinsViewHolder(private val binding: CoinllistDisplayBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(coin: CryptoEntity) {
+            binding.apply {
+                coinsItemNameTextView.text = coin.name
+                coinsItemPriceTextView.text = coin.current_price.toString()
+                coinsItemSymbolTextView.text = coin.symbol
+                coinsItemChangeTextView.text = coin.changePercent.toString()
+                Glide.with(coinsItemImageView)
+                    .load(coin.image)
+                    .into(coinsItemImageView)
+                showChangePercent(coinsItemChangeTextView, coin.changePercent)
+                favouriteImageView.setImageResource(
+                    R.drawable.ic_baseline_favorite_border_24
+                )
+
+                root.setOnClickListener {
+                    viewListener.onViewClicked(coin)
+                }
+                favouriteImageView.setOnClickListener {
+                    favouriteListener.onFavouriteClick(coin)
+                }
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinsViewHolder {
-        val inflator=LayoutInflater.from(parent.context)
-        val binding=CoinllistDisplayBinding.inflate(inflator,parent,false)
-       return CoinsViewHolder(binding)
+        val inflator = LayoutInflater.from(parent.context)
+        val binding = CoinllistDisplayBinding.inflate(inflator, parent, false)
+        return CoinsViewHolder(binding)
     }
+
     override fun onBindViewHolder(holder: CoinsViewHolder, position: Int) {
-         val item=coins[position]
-        holder.coinName.text= item.name.toString()
-        holder.coinPrice.text= item.current_price.toString()
-        holder.coinSymbol.text=item.symbol
-        holder.coinPriceChange.text= item.changePercent.toString()
-        Glide.with(holder.image)
-            .load(item.image)
-            .into(holder.image)
-         showChangePercent(holder.changePercent, item.changePercent)
+        holder.bind(coins[position])
     }
+
     override fun getItemCount(): Int {
         return coins.size
     }

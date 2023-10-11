@@ -26,6 +26,11 @@ class CryptoViewModel(private val repository: CryptoListRepository): ViewModel()
             }
         }
     }
+
+    fun updateCoin(coin: CryptoEntity) = viewModelScope.launch {
+        repository.updateCoin(coin)
+    }
+
     //ViewModelFactory
     class CryptoViewModelFactory(val repository: CryptoListRepository):ViewModelProvider.Factory{
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

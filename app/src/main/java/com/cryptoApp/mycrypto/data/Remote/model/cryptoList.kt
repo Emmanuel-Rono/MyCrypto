@@ -34,5 +34,5 @@ data class CryptoEntity(
     val changePercent: Double? = null,
     val image: String? = null,
     val symbol: String? = null,
-    val isFavourite: Boolean = false
+    var isFavourite: Boolean = false
 )

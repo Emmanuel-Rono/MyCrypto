@@ -3,9 +3,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.cryptoApp.mycrypto.data.CryptoEntity
 import com.cryptoApp.mycrypto.data.Remote.api.ApiClient
 import com.cryptoApp.mycrypto.data.Room.CryptoDatabase
 import com.cryptoApp.mycrypto.domain.CoinViewModel.CryptoViewModel
@@ -31,7 +33,7 @@ class Coins : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = CoinsAdapter(emptyList())
+     //   adapter = CoinsAdapter(emptyList())
         binding.coinsListRecyclerView.apply {
             layoutManager = GridLayoutManager(requireContext(), 1)
             adapter = this@Coins.adapter
@@ -42,9 +44,24 @@ class Coins : Fragment() {
         val api= ApiClient.apiService
         val remoteDataSource = CryptoRemoteDataSource(coinDao,api)
         val localDataSource = CryptoLocalDataSource(coinDao, remoteDataSource)
-        val coinRepository = CryptoListRepository(localDataSource,remoteDataSource)
+        val coinRepository = CryptoListRepository(localDataSource,remoteDataSource,coinDao)
         val viewModelFactory = CryptoViewModel.CryptoViewModelFactory(coinRepository)
         viewModel = ViewModelProvider(this, viewModelFactory)[CryptoViewModel::class.java]
+
+        adapter = CoinsAdapter(mutableListOf(),
+            object : CoinsAdapter.OnViewClickListener {
+                override fun onViewClicked(coin: CryptoEntity) {
+                    Toast.makeText(requireContext(), "Coming Soon", Toast.LENGTH_SHORT).show()
+                }
+            },
+            object : CoinsAdapter.OnFavouriteClickListener {
+                override fun onFavouriteClick(coin: CryptoEntity) {
+                    // Here, you can now handle the favourite action, like updating the database, etc.
+                    coin.isFavourite = !coin.isFavourite
+                    // If you're using a ViewModel and Repository pattern, update the coin in the database.
+                    viewModel.updateCoin(coin)
+                }
+            })
 
         viewModel.cryptoCoinList.observe(viewLifecycleOwner) { products ->
             adapter.coins = products
@@ -52,6 +69,7 @@ class Coins : Fragment() {
         }
 
         viewModel.getTheCoinList()
+
     }
 
 }
