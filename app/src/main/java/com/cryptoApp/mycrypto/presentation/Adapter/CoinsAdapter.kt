@@ -11,18 +11,16 @@ import com.emmanuel_rono.mycrypto.databinding.CoinllistDisplayBinding
 
 class CoinsAdapter(
     var coins: List<CryptoEntity>,
-    private val viewListener: Any,
+    private val viewListener:OnViewClickListener,
     private val favouriteListener: OnFavouriteClickListener
 ) : RecyclerView.Adapter<CoinsAdapter.CoinsViewHolder>() {
 
     interface OnFavouriteClickListener {
         fun onFavouriteClick(coin: CryptoEntity)
     }
-
     interface OnViewClickListener {
         fun onViewClicked(coin: CryptoEntity)
     }
-
     inner class CoinsViewHolder(private val binding: CoinllistDisplayBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -37,29 +35,35 @@ class CoinsAdapter(
                     .into(coinsItemImageView)
                 showChangePercent(coinsItemChangeTextView, coin.changePercent)
                 favouriteImageView.setImageResource(
-                    R.drawable.ic_baseline_favorite_border_24
+                    if (coin.isFavourite) {
+                        R.drawable.ic_baseline_favorite_24
+                    } else {
+                        R.drawable.ic_baseline_favorite_border_24
+                    }
                 )
-
                 root.setOnClickListener {
                     viewListener.onViewClicked(coin)
                 }
                 favouriteImageView.setOnClickListener {
                     favouriteListener.onFavouriteClick(coin)
+                    favouriteImageView.setImageResource(
+                        if (coin.isFavourite) {
+                            R.drawable.ic_baseline_favorite_border_24
+                        } else {
+                            R.drawable.ic_baseline_favorite_24
+                        })
                 }
             }
         }
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinsViewHolder {
         val inflator = LayoutInflater.from(parent.context)
         val binding = CoinllistDisplayBinding.inflate(inflator, parent, false)
         return CoinsViewHolder(binding)
     }
-
     override fun onBindViewHolder(holder: CoinsViewHolder, position: Int) {
         holder.bind(coins[position])
     }
-
     override fun getItemCount(): Int {
         return coins.size
     }

@@ -33,12 +33,11 @@ class Coins : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-     //   adapter = CoinsAdapter(emptyList())
+
         binding.coinsListRecyclerView.apply {
             layoutManager = GridLayoutManager(requireContext(), 1)
-            adapter = this@Coins.adapter
-        }
 
+        }
         val coinDatabase = CryptoDatabase.getInstance(requireContext())
         val coinDao = coinDatabase.cryptoDao()
         val api= ApiClient.apiService
@@ -47,7 +46,7 @@ class Coins : Fragment() {
         val coinRepository = CryptoListRepository(localDataSource,remoteDataSource,coinDao)
         val viewModelFactory = CryptoViewModel.CryptoViewModelFactory(coinRepository)
         viewModel = ViewModelProvider(this, viewModelFactory)[CryptoViewModel::class.java]
-
+       // adapter = this@Coins.adapter
         adapter = CoinsAdapter(mutableListOf(),
             object : CoinsAdapter.OnViewClickListener {
                 override fun onViewClicked(coin: CryptoEntity) {
@@ -62,7 +61,7 @@ class Coins : Fragment() {
                     viewModel.updateCoin(coin)
                 }
             })
-
+        binding.coinsListRecyclerView.adapter = adapter
         viewModel.cryptoCoinList.observe(viewLifecycleOwner) { products ->
             adapter.coins = products
             adapter.notifyDataSetChanged()

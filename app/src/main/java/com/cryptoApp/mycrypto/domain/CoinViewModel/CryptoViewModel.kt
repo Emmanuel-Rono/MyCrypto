@@ -18,7 +18,6 @@ class CryptoViewModel(private val repository: CryptoListRepository): ViewModel()
             try {
                 val coinList=repository.getCoinList()
                 _cryptocoinList.value=coinList
-
             }
             catch (e:Exception)
             {
@@ -26,11 +25,9 @@ class CryptoViewModel(private val repository: CryptoListRepository): ViewModel()
             }
         }
     }
-
     fun updateCoin(coin: CryptoEntity) = viewModelScope.launch {
         repository.updateCoin(coin)
     }
-
     //ViewModelFactory
     class CryptoViewModelFactory(val repository: CryptoListRepository):ViewModelProvider.Factory{
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
