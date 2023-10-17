@@ -13,6 +13,6 @@ interface CryptoDao {
     @Update
     suspend fun updateCoin(coin: CryptoEntity)
 @Query("Select * from CryptoListTable where isFavourite =1 ")
-suspend fun getFavouriteCoins() :LiveData<List<CryptoEntity>>
+suspend fun getFavouriteCoins() :List<CryptoEntity>
 
 }

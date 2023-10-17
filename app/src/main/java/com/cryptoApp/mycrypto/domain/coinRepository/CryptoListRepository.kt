@@ -22,7 +22,7 @@ class CryptoListRepository(
         dao.updateCoin(coin)
     }
 
-    suspend fun getFavouriteCoins(): LiveData<List<CryptoEntity>> {
+    suspend fun getFavouriteCoins():List<CryptoEntity>  {
         return dao.getFavouriteCoins()
     }
 
