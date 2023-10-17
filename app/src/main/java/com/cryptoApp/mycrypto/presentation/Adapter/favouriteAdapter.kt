@@ -13,7 +13,6 @@ class favouriteAdapter : RecyclerView.Adapter<favouriteAdapter.favViewHolder>()
     {
 
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): favViewHolder {
      val inflator=LayoutInflater.from(parent.context)
         val binding=CoinllistDisplayBinding.inflate(inflator,parent,false)

@@ -1,5 +1,6 @@
 package com.cryptoApp.mycrypto.domain.coinRepository
 
+import androidx.lifecycle.LiveData
 import com.cryptoApp.mycrypto.data.CryptoEntity
 import com.cryptoApp.mycrypto.data.Remote.api.ApiClient
 import com.cryptoApp.mycrypto.data.Room.CryptoDao
@@ -21,5 +22,8 @@ class CryptoListRepository(
         dao.updateCoin(coin)
     }
 
+    suspend fun getFavouriteCoins(): LiveData<List<CryptoEntity>> {
+        return dao.getFavouriteCoins()
+    }
 
 }
