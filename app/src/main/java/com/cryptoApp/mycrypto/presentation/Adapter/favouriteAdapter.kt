@@ -5,9 +5,10 @@ import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.cryptoApp.mycrypto.data.CryptoEntity
 import com.emmanuel_rono.mycrypto.databinding.CoinllistDisplayBinding
 
-class favouriteAdapter : RecyclerView.Adapter<favouriteAdapter.favViewHolder>()
+class favouriteAdapter (var favCoins: List<CryptoEntity>): RecyclerView.Adapter<favouriteAdapter.favViewHolder>()
 {
     inner class favViewHolder(private val binding: CoinllistDisplayBinding): ViewHolder(binding.root)
     {

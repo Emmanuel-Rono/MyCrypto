@@ -25,7 +25,7 @@ class favouriteViewModel(val repository: CryptoListRepository,val dao: CryptoDao
             }
         }
     }
-}
+
 class favouriteViewModelFactory(val repository: CryptoListRepository,val dao: CryptoDao): ViewModelProvider.Factory{
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(favouriteViewModel::class.java)) {
@@ -33,4 +33,4 @@ class favouriteViewModelFactory(val repository: CryptoListRepository,val dao: Cr
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
-}
+}}

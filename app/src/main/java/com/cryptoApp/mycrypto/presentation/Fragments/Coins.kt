@@ -66,9 +66,7 @@ class Coins : Fragment() {
             adapter.coins = products
             adapter.notifyDataSetChanged()
         }
-
         viewModel.getTheCoinList()
 
     }
-
 }
