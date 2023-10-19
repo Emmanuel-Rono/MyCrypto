@@ -19,21 +19,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         hideStatusBar() // Now, try to hide the status bar
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
         bottomNavigationView.setupWithNavController(navController)
         supportActionBar?.hide()
-        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.navigation_favourites -> {
-                    navController.navigate(R.id.action_coins_to_favouriteCoins)
-                    true
-                }
-                else -> false
-            }
         }
-    }
+
         private fun hideStatusBar() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 // Use WindowInsetsController for API 30 and above

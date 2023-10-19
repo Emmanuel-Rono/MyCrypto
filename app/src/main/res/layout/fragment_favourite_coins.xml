@@ -35,6 +35,7 @@
             android:layout_margin="@dimen/large_start_margin"
             android:drawablePadding="@dimen/default_bottom_margin"
             android:gravity="center"
+            android:visibility="gone"
             style="@style/TextAppearance.Custom.H1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
