@@ -28,6 +28,19 @@ class CryptoViewModel(private val repository: CryptoListRepository): ViewModel()
     fun updateCoin(coin: CryptoEntity) = viewModelScope.launch {
         repository.updateCoin(coin)
     }
+
+
+    //Get MarketChart
+    val coinPriceChart = MutableLiveData<List<List<Any>>>()
+    fun fetchMarketChart(coinId: String) {
+        viewModelScope.launch {
+            val result = repository.getMarketChart(coinId)
+            coinPriceChart.value = result.prices
+        }
+    }
+
+
+
     //ViewModelFactory
     class CryptoViewModelFactory(val repository: CryptoListRepository):ViewModelProvider.Factory{
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

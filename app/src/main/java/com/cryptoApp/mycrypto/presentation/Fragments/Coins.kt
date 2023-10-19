@@ -50,7 +50,8 @@ class Coins : Fragment() {
         adapter = CoinsAdapter(mutableListOf(),
             object : CoinsAdapter.OnViewClickListener {
                 override fun onViewClicked(coin: CryptoEntity) {
-                    Toast.makeText(requireContext(), "Coming Soon", Toast.LENGTH_SHORT).show()
+                    viewModel.fetchMarketChart("bitcoin")
+
                 }
             },
             object : CoinsAdapter.OnFavouriteClickListener {
