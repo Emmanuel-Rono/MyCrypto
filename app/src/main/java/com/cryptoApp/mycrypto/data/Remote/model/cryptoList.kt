@@ -24,7 +24,6 @@ data class CryptoList(
     fun toCryptoEntity():CryptoEntity{
         return CryptoEntity(id, name = name, current_price = current_price, changePercent = price_change_percentage_24h, image = image, symbol = symbol)
     }
-
 }
 @Entity(tableName = "CryptoListTable")
 data class CryptoEntity(

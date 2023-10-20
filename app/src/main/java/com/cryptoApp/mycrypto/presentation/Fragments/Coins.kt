@@ -1,9 +1,9 @@
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -14,6 +14,7 @@ import com.cryptoApp.mycrypto.domain.CoinViewModel.CryptoViewModel
 import com.cryptoApp.mycrypto.domain.coinRepository.CryptoListRepository
 import com.cryptoApp.mycrypto.domain.coinRepository.CryptoLocalDataSource
 import com.cryptoApp.mycrypto.domain.coinRepository.CryptoRemoteDataSource
+import com.cryptoApp.mycrypto.presentation.Activities.ChartGraphActivity
 import com.cryptoApp.mycrypto.presentation.Adapter.CoinsAdapter
 import com.emmanuel_rono.mycrypto.databinding.FragmentCoinsBinding
 
@@ -50,8 +51,10 @@ class Coins : Fragment() {
         adapter = CoinsAdapter(mutableListOf(),
             object : CoinsAdapter.OnViewClickListener {
                 override fun onViewClicked(coin: CryptoEntity) {
-                    viewModel.fetchMarketChart("bitcoin")
-
+                    //then start the new Activity
+                    val intent=Intent(requireContext(), ChartGraphActivity::class.java)
+                   // intent.putExtra("COIN_ID", coin.id)
+                    startActivity(intent)
                 }
             },
             object : CoinsAdapter.OnFavouriteClickListener {
@@ -68,6 +71,5 @@ class Coins : Fragment() {
             adapter.notifyDataSetChanged()
         }
         viewModel.getTheCoinList()
-
     }
 }

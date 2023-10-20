@@ -28,8 +28,10 @@ class CryptoListRepository(
         return dao.getFavouriteCoins()
     }
     // to Display the Coin Chart
-    suspend fun getMarketChart(coinId: String): PriceChartResponse {
-        return apiService.getMarketChart(coinId)
+    //suspend fun getMarketChart(coinId: String): PriceChartResponse {
+    suspend fun getMarketChart(): PriceChartResponse {
+        //return apiService.getMarketChart(coinId)
+        return apiService.getMarketChart()
     }
 
 
