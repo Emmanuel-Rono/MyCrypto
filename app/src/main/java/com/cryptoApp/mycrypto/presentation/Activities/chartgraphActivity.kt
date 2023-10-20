@@ -26,7 +26,7 @@ import com.github.mikephil.charting.data.LineDataSet
 class ChartGraphActivity : AppCompatActivity() {
         lateinit var binding: ActivityChartgraphBinding
         lateinit var viewModel: CryptoViewModel
-        //var coinId: String? = null
+        var coinId: String? = null
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             binding = ActivityChartgraphBinding.inflate(layoutInflater)
@@ -40,16 +40,16 @@ class ChartGraphActivity : AppCompatActivity() {
             val coinRepository = CryptoListRepository(localDataSource,remoteDataSource,coinDao)
             val viewModelFactory = CryptoViewModel.CryptoViewModelFactory(coinRepository)
             viewModel = ViewModelProvider(this, viewModelFactory)[CryptoViewModel::class.java]
-            //coinId = intent.getStringExtra("COIN_ID")
-           // if (coinId == null) {
+            coinId = intent.getStringExtra("COIN_ID")
+            if (coinId == null) {
                 // Handle error - no coin ID was passed
-              //  finish()
-               // return
-          //  }
+                finish()
+               return
+            }
 
             setupObservers()
-            //viewModel.fetchMarketChart(coinId!!)
-            viewModel.fetchMarketChart()
+            viewModel.fetchMarketChart(coinId!!)
+            //viewModel.fetchMarketChart()
 
         }
         private fun setupObservers() {

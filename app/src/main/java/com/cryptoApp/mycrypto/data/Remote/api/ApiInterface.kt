@@ -16,9 +16,9 @@ interface ApiInterface {
     @GET("markets?vs_currency=eur&order=market_cap_desc&per_page=100&page=1&sparkline=false&locale=en")
     suspend fun getCoinsFromApi(
     ): List<CryptoList>
-    @GET("bitcoin/market_chart?vs_currency=eur&days=100")
+    @GET("{id}/market_chart?vs_currency=eur&days=100")
     suspend fun getMarketChart(
-       // @Path("id") coinId: String,
+       @Path("id") coinId: String,
        // @Query("vs_currency") currency: String = "eur",
        // @Query("days") days: Int = 100
     ): PriceChartResponse

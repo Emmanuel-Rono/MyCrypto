@@ -31,11 +31,11 @@ class CryptoViewModel(private val repository: CryptoListRepository): ViewModel()
 
     //Get MarketChart
     val coinPriceChart = MutableLiveData<List<List<Any>>>()
-  //  fun fetchMarketChart(coinId: String) {
-    fun fetchMarketChart() {
+   fun fetchMarketChart(coinId: String) {
+   // fun fetchMarketChart() {
         viewModelScope.launch {
-            //val result = repository.getMarketChart(coinId)
-            val result = repository.getMarketChart()
+            val result = repository.getMarketChart(coinId)
+            //val result = repository.getMarketChart()
             coinPriceChart.value = result.prices
         }
     }

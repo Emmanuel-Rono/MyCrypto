@@ -53,7 +53,7 @@ class Coins : Fragment() {
                 override fun onViewClicked(coin: CryptoEntity) {
                     //then start the new Activity
                     val intent=Intent(requireContext(), ChartGraphActivity::class.java)
-                   // intent.putExtra("COIN_ID", coin.id)
+                   intent.putExtra("COIN_ID", coin.id)
                     startActivity(intent)
                 }
             },
