@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.cryptoApp.mycrypto.data.CryptoEntity
 import com.cryptoApp.mycrypto.data.Remote.api.ApiClient
@@ -19,7 +18,6 @@ import com.cryptoApp.mycrypto.domain.coinRepository.CryptoRemoteDataSource
 import com.cryptoApp.mycrypto.presentation.Activities.ChartGraphActivity
 import com.cryptoApp.mycrypto.presentation.Adapter.favouriteAdapter
 import com.emmanuel_rono.mycrypto.databinding.FragmentFavouriteCoinsBinding
-import kotlinx.coroutines.launch
 
 class FavouriteCoins : Fragment() {
  lateinit var  binding :FragmentFavouriteCoinsBinding
@@ -53,11 +51,12 @@ binding= FragmentFavouriteCoinsBinding.inflate(inflater,container,false)
                 intent.putExtra("COIN_ID", favCoins.id)
                 startActivity(intent)
             }
-            }, object :favouriteAdapter.onViewClickListener
+            }, object :favouriteAdapter.onFavViewListener
         {
-            override fun onViewClicked(favCoins: CryptoEntity) {
+            override fun onFavViewClicked(favCoins: CryptoEntity) {
                 favCoins.isFavourite = !favCoins.isFavourite
                 viewModel.updateCoin(favCoins)
+               viewModel.getFvaCoin()
             }
             })
         binding.favouritesRecyclerView.adapter = adapter

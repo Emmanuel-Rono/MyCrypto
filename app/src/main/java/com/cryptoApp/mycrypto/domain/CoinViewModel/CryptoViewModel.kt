@@ -13,7 +13,18 @@ class CryptoViewModel(private val repository: CryptoListRepository): ViewModel()
     val _cryptocoinList = MutableLiveData<List<CryptoEntity>>()
     val cryptoCoinList: MutableLiveData<List<CryptoEntity>> get() = _cryptocoinList
 
-
+    fun getTheCoinList() {
+        viewModelScope.launch {
+            try {
+                val coinList=repository.getCoinList()
+                _cryptocoinList.value=coinList
+            }
+            catch (e:Exception)
+            {
+                e.printStackTrace()
+            }
+        }
+    }
     fun updateCoin(coin: CryptoEntity) = viewModelScope.launch {
         repository.updateCoin(coin)
         getTheCoinList()

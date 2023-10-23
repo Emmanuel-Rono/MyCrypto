@@ -15,7 +15,6 @@ import kotlinx.coroutines.launch
 class favouriteViewModel(val repository: CryptoListRepository,val dao: CryptoDao): ViewModel() {
     private val _favCoin = MutableLiveData<List<CryptoEntity>>()
     val favCoin: MutableLiveData<List<CryptoEntity>> get() = _favCoin
-
     fun getFvaCoin() {
         viewModelScope.launch {
             try {
@@ -29,22 +28,11 @@ class favouriteViewModel(val repository: CryptoListRepository,val dao: CryptoDao
             }
         }
     }
-    fun getTheCoinList() {
-        viewModelScope.launch {
-            try {
-                val coinList=repository.getCoinList()
-                _favCoin.value=coinList
-            }
-            catch (e:Exception)
-            {
-                e.printStackTrace()
-            }
-        }
-    }
+
     fun updateCoin(coin: CryptoEntity) = viewModelScope.launch {
         repository.updateCoin(coin)
-        getTheCoinList()
     }
+
 
 class favouriteViewModelFactory(val repository: CryptoListRepository,val dao: CryptoDao): ViewModelProvider.Factory{
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

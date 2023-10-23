@@ -10,7 +10,9 @@ import com.cryptoApp.mycrypto.data.CryptoEntity
 import com.emmanuel_rono.mycrypto.R
 import com.emmanuel_rono.mycrypto.databinding.CoinllistDisplayBinding
 
-class favouriteAdapter(var favCoins: List<CryptoEntity>, var viewListener: onViewClickListener,var favViewListner: onViewClickListener,): RecyclerView.Adapter<favouriteAdapter.favViewHolder>()
+class favouriteAdapter(
+    var favCoins: List<CryptoEntity>, var viewListener: onViewClickListener,
+    var favViewListner: onFavViewListener): RecyclerView.Adapter<favouriteAdapter.favViewHolder>()
 {
 
     interface onViewClickListener
@@ -45,6 +47,15 @@ class favouriteAdapter(var favCoins: List<CryptoEntity>, var viewListener: onVie
                 )
                 root.setOnClickListener {
                     viewListener.onViewClicked(favCoins)
+                }
+                favouriteImageView.setOnClickListener {
+                    favViewListner.onFavViewClicked(favCoins)
+                    favouriteImageView.setImageResource(
+                        if (favCoins.isFavourite) {
+                            R.drawable.ic_baseline_favorite_border_24
+                        } else {
+                            R.drawable.ic_baseline_favorite_24
+                        })
                 }
     }}}
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): favViewHolder {
