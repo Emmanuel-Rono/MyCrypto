@@ -12,10 +12,10 @@ import com.emmanuel_rono.mycrypto.databinding.CoinllistDisplayBinding
 class CoinsAdapter(
     var coins: List<CryptoEntity>,
     private val viewListener:OnViewClickListener,
-    private val favouriteListener: OnFavouriteClickListener
+    private val favouritemListener: OnFavouritemClickListener
 ) : RecyclerView.Adapter<CoinsAdapter.CoinsViewHolder>() {
 
-    interface OnFavouriteClickListener {
+    interface OnFavouritemClickListener {
         fun onFavouriteClick(coin: CryptoEntity)
     }
     interface OnViewClickListener {
@@ -45,7 +45,7 @@ class CoinsAdapter(
                     viewListener.onViewClicked(coin)
                 }
                 favouriteImageView.setOnClickListener {
-                    favouriteListener.onFavouriteClick(coin)
+                    favouritemListener.onFavouriteClick(coin)
                     favouriteImageView.setImageResource(
                         if (coin.isFavourite) {
                             R.drawable.ic_baseline_favorite_border_24

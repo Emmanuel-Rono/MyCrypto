@@ -1,5 +1,6 @@
 package com.CryptoApp.mycrypto.presentation.Fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,15 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.cryptoApp.mycrypto.data.CryptoEntity
 import com.cryptoApp.mycrypto.data.Remote.api.ApiClient
 import com.cryptoApp.mycrypto.data.Room.CryptoDatabase
 import com.cryptoApp.mycrypto.domain.FavaouriteViewModel.favouriteViewModel
 import com.cryptoApp.mycrypto.domain.coinRepository.CryptoListRepository
 import com.cryptoApp.mycrypto.domain.coinRepository.CryptoLocalDataSource
 import com.cryptoApp.mycrypto.domain.coinRepository.CryptoRemoteDataSource
+import com.cryptoApp.mycrypto.presentation.Activities.ChartGraphActivity
 import com.cryptoApp.mycrypto.presentation.Adapter.favouriteAdapter
 import com.emmanuel_rono.mycrypto.databinding.FragmentFavouriteCoinsBinding
-
 
 class FavouriteCoins : Fragment() {
  lateinit var  binding :FragmentFavouriteCoinsBinding
@@ -41,14 +43,20 @@ binding= FragmentFavouriteCoinsBinding.inflate(inflater,container,false)
         val coinRepository = CryptoListRepository(localDataSource,remoteDataSource,coinDao)
         val viewModelFactory =favouriteViewModel.favouriteViewModelFactory(coinRepository,coinDao)
         viewModel = ViewModelProvider(this, viewModelFactory)[favouriteViewModel::class.java]
-        adapter=favouriteAdapter(emptyList())
+        adapter=favouriteAdapter(emptyList(),
+        object : favouriteAdapter.onViewClickListener {
+            override fun onViewClicked(favCoins: CryptoEntity) {
+                //then start the new Activity
+                val intent= Intent(requireContext(), ChartGraphActivity::class.java)
+                intent.putExtra("COIN_ID", favCoins.id)
+                startActivity(intent)
+            }
+            })
         binding.favouritesRecyclerView.adapter = adapter
         viewModel.favCoin.observe(viewLifecycleOwner) { products ->
             adapter.favCoins= products
             adapter.notifyDataSetChanged()
         }
         viewModel.getFvaCoin()
-
     }
     }
-

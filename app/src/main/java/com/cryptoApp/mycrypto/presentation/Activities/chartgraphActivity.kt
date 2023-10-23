@@ -4,12 +4,9 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import com.cryptoApp.mycrypto.data.Remote.api.ApiClient
 import com.cryptoApp.mycrypto.data.Remote.api.ApiClientChart
 import com.cryptoApp.mycrypto.data.Room.CryptoDatabase
 import com.cryptoApp.mycrypto.domain.CoinViewModel.CryptoViewModel
@@ -47,15 +44,25 @@ class ChartGraphActivity : AppCompatActivity() {
                return
             }
 
+
             setupObservers()
             viewModel.fetchMarketChart(coinId!!)
             //viewModel.fetchMarketChart()
 
         }
         private fun setupObservers() {
-            viewModel.coinPriceChart.observe(this) { priceData ->
-                setupChart(priceData)
-            }
+         try {
+             viewModel.coinPriceChart.observe(this) { priceData ->
+
+                 setupChart(priceData)
+             }
+         }
+         catch (e:Exception)
+         {
+             print(e.printStackTrace())
+
+         }
+
             supportActionBar?.hide()
         }
 

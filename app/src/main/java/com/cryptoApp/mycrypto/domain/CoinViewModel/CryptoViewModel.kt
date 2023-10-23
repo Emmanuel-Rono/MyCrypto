@@ -27,6 +27,7 @@ class CryptoViewModel(private val repository: CryptoListRepository): ViewModel()
     }
     fun updateCoin(coin: CryptoEntity) = viewModelScope.launch {
         repository.updateCoin(coin)
+        getTheCoinList()
     }
 
     //Get MarketChart

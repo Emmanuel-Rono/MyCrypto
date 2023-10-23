@@ -2,7 +2,6 @@ package com.cryptoApp.mycrypto.presentation.Adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
@@ -11,10 +10,18 @@ import com.cryptoApp.mycrypto.data.CryptoEntity
 import com.emmanuel_rono.mycrypto.R
 import com.emmanuel_rono.mycrypto.databinding.CoinllistDisplayBinding
 
-class favouriteAdapter (var favCoins: List<CryptoEntity>): RecyclerView.Adapter<favouriteAdapter.favViewHolder>()
+class favouriteAdapter(var favCoins: List<CryptoEntity>, var viewListener: onViewClickListener): RecyclerView.Adapter<favouriteAdapter.favViewHolder>()
 {
+
+    interface onViewClickListener
+    {
+        fun onViewClicked(favCoins:CryptoEntity )
+    }
+
     inner class favViewHolder(private val binding: CoinllistDisplayBinding): ViewHolder(binding.root)
     {
+       //interface of ClickListeners
+
         fun bind(favCoins: CryptoEntity) {
             binding.apply {
                 coinsItemNameTextView.text = favCoins.name
@@ -32,6 +39,9 @@ class favouriteAdapter (var favCoins: List<CryptoEntity>): RecyclerView.Adapter<
                         R.drawable.ic_baseline_favorite_border_24
                     }
                 )
+                root.setOnClickListener {
+                    viewListener.onViewClicked(favCoins)
+                }
     }}}
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): favViewHolder {
      val inflator=LayoutInflater.from(parent.context)

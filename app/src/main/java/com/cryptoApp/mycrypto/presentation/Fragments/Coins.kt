@@ -54,10 +54,11 @@ class Coins : Fragment() {
                     //then start the new Activity
                     val intent=Intent(requireContext(), ChartGraphActivity::class.java)
                    intent.putExtra("COIN_ID", coin.id)
+
                     startActivity(intent)
                 }
             },
-            object : CoinsAdapter.OnFavouriteClickListener {
+            object : CoinsAdapter.OnFavouritemClickListener {
                 override fun onFavouriteClick(coin: CryptoEntity) {
                     // Here, you can now handle the favourite action, like updating the database, etc.
                     coin.isFavourite = !coin.isFavourite
