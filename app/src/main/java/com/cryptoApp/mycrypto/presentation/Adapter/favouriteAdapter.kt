@@ -10,12 +10,16 @@ import com.cryptoApp.mycrypto.data.CryptoEntity
 import com.emmanuel_rono.mycrypto.R
 import com.emmanuel_rono.mycrypto.databinding.CoinllistDisplayBinding
 
-class favouriteAdapter(var favCoins: List<CryptoEntity>, var viewListener: onViewClickListener): RecyclerView.Adapter<favouriteAdapter.favViewHolder>()
+class favouriteAdapter(var favCoins: List<CryptoEntity>, var viewListener: onViewClickListener,var favViewListner: onViewClickListener,): RecyclerView.Adapter<favouriteAdapter.favViewHolder>()
 {
 
     interface onViewClickListener
     {
         fun onViewClicked(favCoins:CryptoEntity )
+    }
+    interface onFavViewListener
+    {
+        fun  onFavViewClicked(favCoins: CryptoEntity)
     }
 
     inner class favViewHolder(private val binding: CoinllistDisplayBinding): ViewHolder(binding.root)
