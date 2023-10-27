@@ -11,6 +11,9 @@
         <action
             android:id="@+id/action_account_to_coins"
             app:destination="@id/coins" />
+        <action
+            android:id="@+id/action_account_to_candleStickFragment"
+            app:destination="@id/candleStickFragment" />
     </fragment>
     <fragment
         android:id="@+id/favouriteCoins"
@@ -22,6 +25,9 @@
         <action
             android:id="@+id/action_favouriteCoins_to_coins"
             app:destination="@id/coins" />
+        <action
+            android:id="@+id/action_favouriteCoins_to_candleStickFragment"
+            app:destination="@id/candleStickFragment" />
     </fragment>
     <fragment
         android:id="@+id/coins"
@@ -32,6 +38,20 @@
             app:destination="@id/favouriteCoins" />
         <action
             android:id="@+id/action_coins_to_account"
+            app:destination="@id/account" />
+    </fragment>
+    <fragment
+        android:id="@+id/candleStickFragment"
+        android:name="com.cryptoApp.mycrypto.presentation.Fragments.CandleStickFragment"
+        android:label="CandleStickFragment" >
+        <action
+            android:id="@+id/action_candleStickFragment_to_favouriteCoins"
+            app:destination="@id/favouriteCoins" />
+        <action
+            android:id="@+id/action_candleStickFragment_to_account"
+            app:destination="@id/account" />
+        <action
+            android:id="@+id/action_candleStickFragment_to_account2"
             app:destination="@id/account" />
     </fragment>
 </navigation>

@@ -15,56 +15,60 @@ import com.cryptoApp.mycrypto.domain.coinRepository.CryptoLocalDataSource
 import com.cryptoApp.mycrypto.domain.coinRepository.CryptoRemoteDataSource
 import com.emmanuel_rono.mycrypto.R
 import com.emmanuel_rono.mycrypto.databinding.ActivityChartgraphBinding
+import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.ValueFormatter
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ChartGraphActivity : AppCompatActivity() {
-        lateinit var binding: ActivityChartgraphBinding
-        lateinit var viewModel: CryptoViewModel
-        var coinId: String? = null
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-            binding = ActivityChartgraphBinding.inflate(layoutInflater)
-            setContentView(binding.root)
+    lateinit var binding: ActivityChartgraphBinding
+    lateinit var viewModel: CryptoViewModel
+    var coinId: String? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityChartgraphBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-            val coinDatabase = CryptoDatabase.getInstance(this)
-            val coinDao = coinDatabase.cryptoDao()
-            val api= ApiClientChart.apiService
-            val remoteDataSource = CryptoRemoteDataSource(coinDao,api)
-            val localDataSource = CryptoLocalDataSource(coinDao, remoteDataSource)
-            val coinRepository = CryptoListRepository(localDataSource,remoteDataSource,coinDao)
-            val viewModelFactory = CryptoViewModel.CryptoViewModelFactory(coinRepository)
-            viewModel = ViewModelProvider(this, viewModelFactory)[CryptoViewModel::class.java]
-            coinId = intent.getStringExtra("COIN_ID")
-            if (coinId == null) {
-                // Handle error - no coin ID was passed
-                finish()
-               return
+        val coinDatabase = CryptoDatabase.getInstance(this)
+        val coinDao = coinDatabase.cryptoDao()
+        val api= ApiClientChart.apiService
+        val remoteDataSource = CryptoRemoteDataSource(coinDao,api)
+        val localDataSource = CryptoLocalDataSource(coinDao, remoteDataSource)
+        val coinRepository = CryptoListRepository(localDataSource,remoteDataSource,coinDao)
+        val viewModelFactory = CryptoViewModel.CryptoViewModelFactory(coinRepository)
+        viewModel = ViewModelProvider(this, viewModelFactory)[CryptoViewModel::class.java]
+        coinId = intent.getStringExtra("COIN_ID")
+        if (coinId == null) {
+            // Handle error - no coin ID was passed
+            finish()
+            return
+        }
+
+
+        setupObservers()
+        viewModel.fetchMarketChart(coinId!!)
+        //viewModel.fetchMarketChart()
+
+    }
+    private fun setupObservers() {
+        try {
+            viewModel.coinPriceChart.observe(this) { priceData ->
+
+                setupChart(priceData)
             }
-
-
-            setupObservers()
-            viewModel.fetchMarketChart(coinId!!)
-            //viewModel.fetchMarketChart()
+        }
+        catch (e:Exception)
+        {
+            print(e.printStackTrace())
 
         }
-        private fun setupObservers() {
-         try {
-             viewModel.coinPriceChart.observe(this) { priceData ->
 
-                 setupChart(priceData)
-             }
-         }
-         catch (e:Exception)
-         {
-             print(e.printStackTrace())
-
-         }
-
-            supportActionBar?.hide()
-        }
+        supportActionBar?.hide()
+    }
 
     private fun setupChart(priceData: List<List<Any>>) {
         val entries = mutableListOf<Entry>()
@@ -75,18 +79,36 @@ class ChartGraphActivity : AppCompatActivity() {
             entries.add(Entry(timestamp, price))
         }
 
-        val dataSet = LineDataSet(entries, "Price Over Time").apply {
+        val dataSet = LineDataSet(entries,"T").apply {
             color = ContextCompat.getColor(this@ChartGraphActivity, R.color.blue)
             valueTextColor = ContextCompat.getColor(this@ChartGraphActivity, R.color.black)
             setDrawFilled(true)
         }
+
         val lineData = LineData(dataSet)
         with(binding.chart) {
             data = lineData
+
+            xAxis.valueFormatter = object : ValueFormatter() {
+                private val sdf = SimpleDateFormat("dd/MM", Locale.getDefault())
+
+                override fun getAxisLabel(value: Float, axis: AxisBase?): String {
+                    return sdf.format(Date(value.toLong()))
+                }
+            }
+
+            axisLeft.valueFormatter = object : ValueFormatter() {
+                override fun getAxisLabel(value: Float, axis: AxisBase?): String {
+                    return if (value >= 1000) "${value / 1000}K" else value.toString()
+                }
+            }
+
             description.text = "Time"
             setDrawGridBackground(false)
             axisRight.isEnabled = false
             xAxis.position = XAxis.XAxisPosition.BOTTOM
+            xAxis.setAvoidFirstLastClipping(true)
+            xAxis.labelRotationAngle = -45f
             invalidate()
         }
     }
