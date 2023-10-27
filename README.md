@@ -1,5 +1,5 @@
 # MyCrypto
-Building an application to help track several crypto coin prices and daily moves.
+An application that helps you track several crypto coin prices and its daily moves
 
 
 ## Screenshots
@@ -24,7 +24,6 @@ MVVM provides a clear separation of concern and has great support in Android SDK
   * [Room][4] - Access your app's SQLite database with in-app objects and compile-time checks.
   * [ViewModel][5] - Store UI-related data that isn't destroyed on app rotations. Easily schedule
      asynchronous tasks for optimal execution.
-  * [Dagger][6] - For Dependeny Injection 
   * [Navigation][12] - Handle everything needed for in-app navigation.
 * Third party
   * [Glide][7] for image loading
@@ -38,7 +37,6 @@ MVVM provides a clear separation of concern and has great support in Android SDK
 [3]: https://developer.android.com/topic/libraries/architecture/livedata
 [4]: https://developer.android.com/topic/libraries/architecture/room
 [5]: https://developer.android.com/topic/libraries/architecture/viewmodel
-[6]: https://developer.android.com/training/dependency-injection/dagger-android
 [7]: https://bumptech.github.io/glide/
 [8]: https://kotlinlang.org/docs/reference/coroutines-overview.html
 [9]: https://github.com/PhilJay/MPAndroidChart
@@ -51,7 +49,7 @@ MVVM provides a clear separation of concern and has great support in Android SDK
 
 ## Contact Me 
 
-If you like my work, feel free to support it!
+If you like my work, feel free to connect with me
 
 *  [LinkedIn][13]
 
